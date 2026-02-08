@@ -129,54 +129,59 @@ button {
 <div class="hearts" id="hearts"></div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const herName = params.get("name");
-if (herName) {
-  document.getElementById("title").innerText =
-    `Hey ${herName}… will you be my Valentine? 💖`;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const card = document.getElementById("card");
-const hearts = document.getElementById("hearts");
+  const params = new URLSearchParams(window.location.search);
+  const herName = params.get("name");
 
-function moveNo() {
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
-}
+  const card = document.getElementById("card");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const hearts = document.getElementById("hearts");
+  const title = document.getElementById("title");
 
-["mouseenter", "touchstart"].forEach(e =>
-  noBtn.addEventListener(e, moveNo)
-);
-
-yesBtn.addEventListener("click", () => {
-  card.innerHTML = `<p style="font-size:18px">Checking your answer… 💭</p>`;
-
-  setTimeout(() => {
-    card.innerHTML = `
-      <div class="success-card">
-        <h1>Yayyy! 💕🥹</h1>
-        <p>My Forever Valentine!! 💘</p>
-      </div>
-    `;
-    launchHearts();
-  }, 1500);
-});
-
-function launchHearts() {
-  for (let i = 0; i < 30; i++) {
-    const h = document.createElement("span");
-    h.innerHTML = "❤️";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (3 + Math.random() * 3) + "s";
-    hearts.appendChild(h);
-    setTimeout(() => h.remove(), 7000);
+  if (herName && title) {
+    title.innerText = `Hey ${herName}… will you be my Valentine? 💖`;
   }
-}
+
+  function moveNo() {
+    const padding = 20;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+  }
+
+  ["mouseenter", "mouseover", "touchstart"].forEach(evt => {
+    noBtn.addEventListener(evt, moveNo);
+  });
+
+  yesBtn.addEventListener("click", () => {
+    card.innerHTML = `<p style="font-size:18px">Checking your answer… 💭</p>`;
+
+    setTimeout(() => {
+      card.innerHTML = `
+        <div class="success-card">
+          <h1>Yayyy! 💕🥹</h1>
+          <p>My Forever Valentine!! 💘</p>
+        </div>
+      `;
+      launchHearts();
+    }, 1500);
+  });
+
+  function launchHearts() {
+    for (let i = 0; i < 30; i++) {
+      const h = document.createElement("span");
+      h.innerHTML = "❤️";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = (3 + Math.random() * 3) + "s";
+      hearts.appendChild(h);
+      setTimeout(() => h.remove(), 7000);
+    }
+  }
+
+});
 </script>
 
 </body>
