@@ -95,6 +95,26 @@
       pointer-events: none;
     }
 
+    .success-card {
+      background: rgba(255,255,255,0.22);
+      backdrop-filter: blur(16px);
+      border-radius: 26px;
+      padding: 40px 30px;
+      text-align: center;
+      animation: popIn 0.8s ease;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+    }
+    
+    .success-card h1 {
+      font-size: 34px;
+      margin-bottom: 15px;
+    }
+    
+    .success-card p {
+      font-size: 18px;
+      opacity: 0.95;
+    }
+
     @keyframes popIn {
       0% { transform: scale(0.7); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
@@ -162,15 +182,16 @@
         <div class="loading">Checking your answer… 💭</div>
       `;
 
-      setTimeout(() => {
-        card.innerHTML = `
+    setTimeout(() => {
+      card.innerHTML = `
+        <div class="success-card">
           <h1>Yayyy! 💕🥹</h1>
-          <p>My Forever Valentine!!💘</p>
-        `;
-        launchHearts();
-      }, 1500);
-    });
-
+          <p>My Forever Valentine!! 💘</p>
+        </div>
+      `;
+      launchHearts();
+    }, 1500);
+      
     function launchHearts() {
       for (let i = 0; i < 35; i++) {
         const heart = document.createElement("span");
