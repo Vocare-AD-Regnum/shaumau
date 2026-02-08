@@ -24,6 +24,7 @@ body {
   color: #fff;
 }
 
+/* Main card */
 .card {
   background: rgba(255,255,255,0.18);
   backdrop-filter: blur(16px);
@@ -58,6 +59,7 @@ button {
   font-size: 16px;
   border-radius: 30px;
   cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
 #yesBtn {
@@ -72,17 +74,18 @@ button {
   color: #ff4d6d;
   left: 50%;
   top: 90px;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(1);
 }
 
+/* Success card */
 .success-card {
   background: rgba(255,255,255,0.22);
   backdrop-filter: blur(18px);
   border-radius: 28px;
   padding: 42px 30px;
   text-align: center;
-  animation: popIn 0.7s ease;
   box-shadow: 0 35px 70px rgba(0,0,0,0.4);
+  animation: popIn 0.6s ease, heartbeat 1.5s infinite;
 }
 
 .success-card h1 {
@@ -94,6 +97,7 @@ button {
   font-size: 18px;
 }
 
+/* Hearts */
 .hearts span {
   position: absolute;
   bottom: -30px;
@@ -102,6 +106,7 @@ button {
   pointer-events: none;
 }
 
+/* Animations */
 @keyframes popIn {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
@@ -111,6 +116,14 @@ button {
   from { transform: translateY(0); opacity: 1; }
   to { transform: translateY(-120vh); opacity: 0; }
 }
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
 </style>
 </head>
 
@@ -118,7 +131,7 @@ button {
 
 <div class="card" id="card">
   <h1 id="title">Will you be my Valentine? 💖</h1>
-  <p>I promise love, laughs, and stealing your fries 🍟🥰</p>
+  <p>I promise unlimited smiles, bad jokes, and lots of love 🥰</p>
 
   <div class="buttons">
     <button id="yesBtn">Yes 😍</button>
@@ -127,6 +140,9 @@ button {
 </div>
 
 <div class="hearts" id="hearts"></div>
+
+<!-- Background music -->
+<audio id="bgMusic" src="music.mp3" loop></audio>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -139,17 +155,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const yesBtn = document.getElementById("yesBtn");
   const hearts = document.getElementById("hearts");
   const title = document.getElementById("title");
+  const music = document.getElementById("bgMusic");
 
-  if (herName && title) {
-    title.innerText = `Hey ${herName}… will you be my Valentine? 💖`;
+  if (herName) {
+    title.innerText = `Miss Shruti Karki, will you be my Valentine? 💖`;
   }
 
+  let noScale = 1;
+
   function moveNo() {
+    noScale -= 0.08;
+    if (noScale < 0.4) noScale = 0.4;
+
     const padding = 20;
     const maxX = window.innerWidth - noBtn.offsetWidth - padding;
     const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
     noBtn.style.left = Math.random() * maxX + "px";
     noBtn.style.top = Math.random() * maxY + "px";
+    noBtn.style.transform = `translateX(0) scale(${noScale})`;
   }
 
   ["mouseenter", "mouseover", "touchstart"].forEach(evt => {
@@ -157,6 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   yesBtn.addEventListener("click", () => {
+    music.play().catch(() => {});
+
     card.innerHTML = `<p style="font-size:18px">Checking your answer… 💭</p>`;
 
     setTimeout(() => {
@@ -164,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="success-card">
           <h1>Yayyy! 💕🥹</h1>
           <p>My Forever Valentine!! 💘</p>
+          <p>You have to give me a good long kiss to seal the deal!! 💕</p>
         </div>
       `;
       launchHearts();
@@ -171,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function launchHearts() {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 35; i++) {
       const h = document.createElement("span");
       h.innerHTML = "❤️";
       h.style.left = Math.random() * 100 + "vw";
