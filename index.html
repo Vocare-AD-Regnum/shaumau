@@ -15,7 +15,9 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url("bg.jpg") center / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -23,15 +25,15 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(14px);
       padding: 30px 25px;
-      border-radius: 20px;
+      border-radius: 22px;
       text-align: center;
       width: 90%;
       max-width: 360px;
-      animation: popIn 1s ease;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      animation: popIn 0.9s ease;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
     }
 
     h1 {
@@ -40,22 +42,24 @@
     }
 
     p {
-      opacity: 0.9;
+      opacity: 0.95;
       margin-bottom: 25px;
+      font-size: 15px;
     }
 
     .buttons {
       position: relative;
-      height: 120px;
+      height: 170px;
+      width: 100%;
     }
 
     button {
       border: none;
-      padding: 14px 22px;
+      padding: 14px 24px;
       font-size: 16px;
       border-radius: 30px;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.15s ease;
     }
 
     button:active {
@@ -65,7 +69,7 @@
     #yesBtn {
       background: #ff4d6d;
       color: white;
-      box-shadow: 0 10px 20px rgba(255,77,109,0.4);
+      box-shadow: 0 10px 25px rgba(255,77,109,0.5);
     }
 
     #noBtn {
@@ -73,20 +77,22 @@
       background: white;
       color: #ff4d6d;
       left: 50%;
-      top: 60px;
+      top: 80px;
       transform: translateX(-50%);
     }
 
-    .success {
-      animation: popIn 0.8s ease;
+    .loading {
+      font-size: 18px;
+      animation: pulse 1.2s infinite;
     }
 
     .hearts span {
       position: absolute;
-      bottom: -20px;
-      font-size: 20px;
+      bottom: -30px;
+      font-size: 22px;
       animation: floatUp linear infinite;
-      opacity: 0.8;
+      opacity: 0.9;
+      pointer-events: none;
     }
 
     @keyframes popIn {
@@ -96,7 +102,13 @@
 
     @keyframes floatUp {
       from { transform: translateY(0); }
-      to { transform: translateY(-110vh); }
+      to { transform: translateY(-120vh); }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
     }
   </style>
 </head>
@@ -104,8 +116,8 @@
 <body>
 
   <div class="card" id="card">
-    <h1>Will you be my Valentine? 💖</h1>
-    <p>I promise unlimited smiles, bad jokes, and lots of love 🥰</p>
+    <h1 id="title">Will you be my Valentine? 💖</h1>
+    <p>I promise love, laughs, and stealing your fries 🍟🥰</p>
 
     <div class="buttons">
       <button id="yesBtn">Yes 😍</button>
@@ -116,40 +128,57 @@
   <div class="hearts" id="hearts"></div>
 
   <script>
+    const params = new URLSearchParams(window.location.search);
+    const herName = params.get("name");
+
+    if (herName) {
+      document.getElementById("title").innerText =
+        `Hey ${herName}… will you be my Valentine? 💖`;
+    }
+
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("card");
     const hearts = document.getElementById("hearts");
 
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("touchstart", moveNo);
+    function moveNoButton() {
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-    function moveNo() {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 100);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
     }
+
+    ["mouseenter", "mouseover", "touchstart"].forEach(evt => {
+      noBtn.addEventListener(evt, moveNoButton, { passive: true });
+    });
 
     yesBtn.addEventListener("click", () => {
       card.innerHTML = `
-        <div class="success">
-          <h1>Yayyy! 💕🥹</h1>
-          <p>I knew it. Best Valentine ever 💘</p>
-        </div>
+        <div class="loading">Checking your answer… 💭</div>
       `;
-      launchHearts();
+
+      setTimeout(() => {
+        card.innerHTML = `
+          <h1>Yayyy! 💕🥹</h1>
+          <p>I knew it. Best decision ever 💘</p>
+        `;
+        launchHearts();
+      }, 1500);
     });
 
     function launchHearts() {
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 35; i++) {
         const heart = document.createElement("span");
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = (3 + Math.random() * 3) + "s";
         hearts.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 6000);
+        setTimeout(() => heart.remove(), 7000);
       }
     }
   </script>
