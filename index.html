@@ -1,211 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine 💖</title>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-* {
-  box-sizing: border-box;
-  font-family: "Poppins", system-ui, sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont;
+    }
 
-body {
-  margin: 0;
-  height: 100vh;
-  overflow: hidden;
-  background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("bg.jpg") center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      background-image: url("./landing.jpg");;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background-image 1s ease-in-out;
+    }
 
-/* Main card */
-.card {
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(16px);
-  padding: 32px 26px;
-  border-radius: 24px;
-  text-align: center;
-  width: 90%;
-  max-width: 360px;
-  box-shadow: 0 25px 55px rgba(0,0,0,0.3);
-  animation: popIn 0.8s ease;
-}
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 32px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      width: min(90%, 360px);
+      animation: pop 0.6s ease;
+    }
 
-.card h1 {
-  font-size: 26px;
-  margin-bottom: 12px;
-}
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
 
-.card p {
-  font-size: 15px;
-  opacity: 0.95;
-  margin-bottom: 28px;
-}
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 24px;
+      position: relative;
+      height: 80px;
+    }
 
-.buttons {
-  position: relative;
-  height: 180px;
-}
+    button {
+      padding: 14px 26px;
+      font-size: 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
 
-button {
-  border: none;
-  padding: 14px 26px;
-  font-size: 16px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
+    #yesBtn {
+      background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+      color: white;
+      font-weight: 600;
+    }
 
-#yesBtn {
-  background: #ff4d6d;
-  color: #fff;
-  box-shadow: 0 12px 30px rgba(255,77,109,0.5);
-}
+    #noBtn {
+      background: #eee;
+      position: absolute;
+    }
 
-#noBtn {
-  position: absolute;
-  background: #fff;
-  color: #ff4d6d;
-  left: 50%;
-  top: 90px;
-  transform: translateX(-50%) scale(1);
-}
+    .checking {
+      font-size: 18px;
+      animation: pulse 1s infinite;
+    }
 
-/* Success card */
-.success-card {
-  background: rgba(255,255,255,0.22);
-  backdrop-filter: blur(18px);
-  border-radius: 28px;
-  padding: 42px 30px;
-  text-align: center;
-  box-shadow: 0 35px 70px rgba(0,0,0,0.4);
-  animation: popIn 0.6s ease, heartbeat 1.5s infinite;
-}
+    .success-card {
+      animation: heartbeat 1.2s infinite;
+    }
 
-.success-card h1 {
-  font-size: 34px;
-  margin-bottom: 14px;
-}
+    .success-card h1 {
+      font-size: 32px;
+    }
 
-.success-card p {
-  font-size: 18px;
-}
+    .success-card p {
+      font-size: 18px;
+    }
 
-/* Hearts */
-.hearts span {
-  position: absolute;
-  bottom: -30px;
-  font-size: 22px;
-  animation: floatUp linear infinite;
-  pointer-events: none;
-}
+    #hearts span {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+    }
 
-/* Animations */
-@keyframes popIn {
-  from { transform: scale(0.7); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
 
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-120vh); opacity: 0; }
-}
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
 
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.05); }
-  40% { transform: scale(1); }
-  60% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-</style>
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.05); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.07); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card" id="card">
-  <h1 id="title">Miss Shruti Karki, will you be my Valentine? 💖</h1>
-  <p>I promise unlimited smiles, bad jokes, and lots of love 🥰</p>
-
-  <div class="buttons">
-    <button id="yesBtn">Yes 😍</button>
-    <button id="noBtn">No 🙄</button>
+  <div class="card" id="card">
+    <h1 id="title">Will you be my Valentine? 💖</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes 💘</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
   </div>
-</div>
 
-<div class="hearts" id="hearts"></div>
+  <div id="hearts"></div>
 
-<!-- Background music -->
-<audio id="bgMusic" src="music.mp3" loop></audio>
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
 
-  const params = new URLSearchParams(window.location.search);
-  const herName = params.get("name");
+      const params = new URLSearchParams(window.location.search);
+      const herName = params.get("name");
 
-  const card = document.getElementById("card");
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const hearts = document.getElementById("hearts");
-  const title = document.getElementById("title");
-  const music = document.getElementById("bgMusic");
+      const title = document.getElementById("title");
+      const card = document.getElementById("card");
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+      const hearts = document.getElementById("hearts");
+      const music = document.getElementById("bgMusic");
 
-  let noScale = 1;
+      let noScale = 1;
 
-  function moveNo() {
-    noScale -= 0.08;
-    if (noScale < 0.4) noScale = 0.4;
+      if (herName) {
+        title.innerText = `Hey ${herName}… will you be my Valentine? 💖`;
+      }
 
-    const padding = 20;
-    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+      function moveNo() {
+        noScale -= 0.1;
+        if (noScale < 0.4) noScale = 0.4;
 
-    noBtn.style.left = Math.random() * maxX + "px";
-    noBtn.style.top = Math.random() * maxY + "px";
-    noBtn.style.transform = `translateX(0) scale(${noScale})`;
-  }
+        noBtn.style.transform = `scale(${noScale})`;
 
-  ["mouseenter", "mouseover", "touchstart"].forEach(evt => {
-    noBtn.addEventListener(evt, moveNo);
-  });
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
 
-  yesBtn.addEventListener("click", () => {
-    music.play().catch(() => {});
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+      }
 
-    card.innerHTML = `<p style="font-size:18px">Checking your answer… 💭</p>`;
+      ["mouseenter", "mouseover", "touchstart"].forEach(evt => {
+        noBtn.addEventListener(evt, moveNo);
+      });
 
-    setTimeout(() => {
-      card.innerHTML = `
-        <div class="success-card">
-          <h1>Yayyy! 💕🥹</h1>
-          <p>My Forever Valentine!! 💘</p>
-          <p>You have to give me a good long kiss to seal the deal!! 😘💋</p>
-        </div>
-      `;
-      launchHearts();
-    }, 2000);
-  });
+      yesBtn.addEventListener("click", () => {
+        card.innerHTML = `<p class="checking">Checking your answer… 💭</p>`;
 
-  function launchHearts() {
-    for (let i = 0; i < 35; i++) {
-      const h = document.createElement("span");
-      h.innerHTML = "❤️";
-      h.style.left = Math.random() * 100 + "vw";
-      h.style.animationDuration = (3 + Math.random() * 3) + "s";
-      hearts.appendChild(h);
-      setTimeout(() => h.remove(), 7000);
-    }
-  }
+        setTimeout(() => {
+          document.body.style.backgroundImage =
+            'url("./success.jpg")';
 
-});
-</script>
+          card.innerHTML = `
+            <div class="success-card">
+              <h1>Yayyy! 💕🥹😘</h1>
+              <p>My Forever Valentine!! 💘💋</p>
+            </div>
+          `;
+
+          music.play().catch(() => {});
+          launchHearts();
+        }, 2000);
+      });
+
+      function launchHearts() {
+        setInterval(() => {
+          const heart = document.createElement("span");
+          heart.innerText = "❤️";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+          hearts.appendChild(heart);
+          setTimeout(() => heart.remove(), 8000);
+        }, 300);
+      }
+
+    });
+  </script>
 
 </body>
 </html>
